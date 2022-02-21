@@ -1,0 +1,25 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - 'feature/*'
+      - 'development'
+      - 'main'
+jobs:
+  unit_test_and_build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: npm ci
+        run: npm ci
+      - name: npm run test
+        run: npm run test
+      - name: npm build
+        run: npm run build
+      - id: deploy
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          credentials: ${{ secrets.GCP_SA_KEY }}
+      - name: show url
+        run: gcloud app describe
