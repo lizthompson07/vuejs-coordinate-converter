@@ -4,7 +4,7 @@ on:
     branches:
       - 'feature/*'
       - 'development'
-      - 'main'
+      - 'master'
 jobs:
   unit_test_and_build:
     runs-on: ubuntu-20.04
