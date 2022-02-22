@@ -184,7 +184,7 @@ export default {
             var degree = this.ddmLatDegree;
             var minute = this.ddmLatMinute / 60;
             //set ddLat to the new values
-            this.ddLat = (degree + minute).toFixed(6);
+            this.ddLat = (Number(degree) + Number(minute)).toFixed(6);
             //convert DDM to DMS
             let minutes = Math.trunc(this.ddmLatMinute);
             let second = Number((this.ddmLatMinute - minutes).toFixed(6));
@@ -198,7 +198,7 @@ export default {
                 this.dmsLatMinute = minutes;
                 this.dmsLatSecond = second * 60;
             } else {
-                this.dmsLatDegree = this.ddmLatDegree
+                this.dmsLatDegree = this.ddmLatDegree;
                 this.dmsLatMinute = minutes;
                 this.dmsLatSecond = second * 60;
             }
@@ -208,7 +208,7 @@ export default {
             var degree = this.ddmLongDegree;
             var minute = this.ddmLongMinute / 60;
             //set ddLong to the new values
-            this.ddLong = -(degree + minute).toFixed(6);
+            this.ddLong = -(Number(degree) + Number(minute)).toFixed(6);
             //convert DDM to DMS
             let minutes = Math.trunc(this.ddmLongMinute);
             let second = Number((this.ddmLongMinute - minutes).toFixed(6));
@@ -247,7 +247,7 @@ export default {
             let degree = Math.trunc(this.ddLong);
             let minute = Number((this.ddLong - degree).toFixed(6));
             //set ddmLatDegree, ddmLatMinute to the new values
-            this.ddmLongDegree = degree;
+            this.ddmLongDegree = Math.abs(degree);
             this.ddmLongMinute = minute * 60;
             //convert DDM to DMS
             let minutes = Math.trunc(this.ddmLongMinute);
@@ -256,6 +256,8 @@ export default {
             this.dmsLongDegree = this.ddmLongDegree
             this.dmsLongMinute = minutes;
             this.dmsLongSecond = second * 60;
+            //get input as absolute and make sure negative (assuming we're using in W)
+            this.ddLong = -(Math.abs(degree));
         },
         convertDMSToOtherLat() {
             //convert DMS to DDM
@@ -270,16 +272,16 @@ export default {
                 this.ddmLatMinute = minute + 1;
             } else if ((this.dmsLatMinute + second) > 59.999999) {
                 this.ddmLatDegree = this.dmsLatDegree + 1;
-                this.ddmLatMinute = second.toFixed(6);
+                this.ddmLatMinute = Number(second).toFixed(6);
             } else {
                 this.ddmLatDegree = this.dmsLatDegree;
-                this.ddmLatMinute = (minute + second).toFixed(6);
+                this.ddmLatMinute = (Number(minute) + Number(second)).toFixed(6);
             }
             //convert DDM to DD
             var degree = this.ddmLatDegree;
             var minutes = this.ddmLatMinute / 60;
             //set ddLat to the new values
-            this.ddLat = (degree + minutes).toFixed(6);
+            this.ddLat = (Number(degree) + Number(minutes)).toFixed(6);
         },
         convertDMSToOtherLong() {
             //convert DMS to DDM
@@ -294,16 +296,16 @@ export default {
                 this.ddmLongMinute = minute + 1;
             } else if ((this.dmsLongMinute + second) > 59.999999) {
                 this.ddmLongDegree = this.dmsLongDegree + 1;
-                this.ddmLongMinute = second.toFixed(6);
+                this.ddmLongMinute = Number(second).toFixed(6);
             } else {
                 this.ddmLongDegree = this.dmsLongDegree;
-                this.ddmLongMinute = (minute + second).toFixed(6);
+                this.ddmLongMinute = (Number(minute) + Number(second)).toFixed(6);
             }
             //convert DDM to DD
             var degree = this.ddmLongDegree;
             var minutes = this.ddmLongMinute / 60;
             //set ddLat to the new values
-            this.ddLong = (degree + minutes).toFixed(6);
+            this.ddLong = -(Number(degree) + Number(minutes)).toFixed(6);
         }
     },
     created() {
