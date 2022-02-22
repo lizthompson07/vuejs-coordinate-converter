@@ -17,9 +17,14 @@ jobs:
 #        run: npm run test
       - name: npm build
         run: npm run build
+      - id: auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
       - id: deploy
         uses: google-github-actions/deploy-appengine@main
-        with:
-          credentials: ${{ secrets.GCP_SA_KEY }}
+#        with:
+#          credentials: ${{ secrets.GCP_SA_KEY }}
       - name: show url
         run: gcloud app describe
