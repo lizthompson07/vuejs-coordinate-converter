@@ -25,6 +25,6 @@ jobs:
       - id: deploy
         uses: google-github-actions/deploy-appengine@main
 #        with:
-#          credentials: ${{ secrets.GCP_SA_KEY }}
+#          credentials: ${{ secrets.GCP_SA_KEY }} ---deprecated auth system
       - name: show url
         run: gcloud app describe
