@@ -263,6 +263,7 @@ export default {
             //convert DMS to DDM
             let minute = this.dmsLatMinute;
             let second = this.dmsLatSecond / 60;
+            let sumMinuteSecond = Number(minute) + Number(second)
             //set ddmLatDegree, ddmLatMinute to the new values
             //add error catching if seconds > 60
             if ((this.dmsLatSecond > 60.0) || (this.dmsLatMinute > 60.0)) {
@@ -270,7 +271,7 @@ export default {
             } else if (this.dmsLatSecond === 60) {
                 this.ddmLatDegree = this.dmsLatDegree;
                 this.ddmLatMinute = minute + 1;
-            } else if ((this.dmsLatMinute + second) > 59.999999) {
+            } else if (sumMinuteSecond > 59.999999) {
                 this.ddmLatDegree = this.dmsLatDegree + 1;
                 this.ddmLatMinute = Number(second).toFixed(6);
             } else {
@@ -287,6 +288,7 @@ export default {
             //convert DMS to DDM
             let minute = this.dmsLongMinute;
             let second = this.dmsLongSecond / 60;
+            let sumMinuteSecond = Number(minute) + Number(second)
             //set ddmLongDegree, ddmLongMinute to the new values
             //add error catching if seconds > 60
             if ((this.dmsLongSecond > 60.0) || (this.dmsLongMinute > 60.0)) {
@@ -294,7 +296,7 @@ export default {
             } else if (this.dmsLongSecond === 60) {
                 this.ddmLongDegree = this.dmsLongDegree;
                 this.ddmLongMinute = minute + 1;
-            } else if ((this.dmsLongMinute + second) > 59.999999) {
+            } else if (sumMinuteSecond > 59.999999) {
                 this.ddmLongDegree = this.dmsLongDegree + 1;
                 this.ddmLongMinute = Number(second).toFixed(6);
             } else {
